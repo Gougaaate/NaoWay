@@ -298,7 +298,7 @@ if __name__ == "__main__":
     
     # Important  when using virtual NAO !!! set path to the folder where V-REP stores the camera images
     #nao_drv.set_virtual_camera_path("/home/newubu/Robotics/nao/vnao/plugin-v2/imgs")
-    nao_drv.set_virtual_camera_path("/home/adam/Documents/Visual_servoing/UE52-VS-IK/imgs")
+    nao_drv.set_virtual_camera_path("../../../imgs")
 
     fps = 4
     dt_loop = 1./fps
