@@ -22,7 +22,7 @@ nao_drv = nao_driver.NaoDriver(nao_ip=robot_ip, nao_port=robot_port)
 if nao_drv.vnao:
     #nao_drv.set_virtual_camera_path("/home/newubu/Teach/Visual-Servoing-and-IK/tmp-build/build-td-UE52-VS-IK-20211019/UE52-VS-IK/imgs")
     #nao_drv.set_virtual_camera_path("/home/newubu/Robotics/nao/vnao/plugin-v2/imgs")
-    nao_drv.set_virtual_camera_path("/home/adam/Documents/Visual_servoing/UE52-VS-IK/imgs")
+    nao_drv.set_virtual_camera_path("../../../imgs")
 nao_drv.set_nao_at_rest()
 
 # set top camera (cam_num: top=0, bottom=1)
