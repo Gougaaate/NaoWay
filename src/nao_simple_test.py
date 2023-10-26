@@ -36,6 +36,7 @@ nao_drv.change_camera(cam_num)
 # acquire and display the image before the motion
 img_ok, cv_img, image_width, image_height = nao_drv.get_image()
 nao_drv.show_image(key=3000)  # 3 s
+detection.detect_yellow_ball(cv_img)
 
 t0 = time.time()
 
@@ -48,27 +49,72 @@ except Exception, e:
     "Error was: ", e
 
 names = ["HeadYaw", "HeadPitch"]
-bang = 2
+bang = 0.005
 
-x_wanted = 0.5
-y_wanted = 0.7
+# x_wanted = detection.detect_yellow_ball(cv_img)[1][0] 
+# y_wanted = detection.detect_yellow_ball(cv_img)[1][1]
 
-while True:
+w = 320
+h = 240
+
+test = True
+while test:
+    img_ok, img, nx, ny = nao_drv.get_image()
     yaw0, pitch0 = motionProxy.getAngles(names, True)
-    errx = yaw0 - x_wanted
-    erry = pitch0 - y_wanted
-    if errx <= 0 and abs(errx) > 0.2:
-        yaw1 = yaw0 + bang
-    else:
+    x_wanted = detection.detect_yellow_ball(img)[1][0]
+    # print x_wanted 
+    y_wanted = detection.detect_yellow_ball(img)[1][1]
+    # print y_wanted
+    errx = w/2 - x_wanted
+    erry = h/2 - y_wanted
+
+    if errx <= -30 : # and abs(errx) > 0.2:
         yaw1 = yaw0 - bang
-    if erry <= 0 and abs(erry) > 0.2:
+        print "errx = ", errx
+
+    elif errx >= 30:
+        yaw1 = yaw0 + bang
+        print "errx = ", errx
+        
+    # else:
+    #     break
+
+    if erry <= -30 : # and abs(erry) > 0.2:
         pitch1 = pitch0 + bang
-    else:
+        print "erry = ", erry
+
+    elif erry >= 30:
         pitch1 = pitch0 - bang
+        print "erry = ", erry
+
+    if abs(errx) < 30 and abs(erry) < 30:
+        test = False
+        print "adam est un tel bg"
 
     angles = [yaw1, pitch1]
     fraction_max_speed = 0.5
     motionProxy.setAngles(names, angles,fraction_max_speed)
+    
+# while test:
+#     img_ok, img, nx, ny = nao_drv.get_image()
+#     yaw0, pitch0 = motionProxy.getAngles(names, True)
+#     x_wanted = detection.detect_yellow_ball(img)[1][0]
+
+#     errx = w/2 - x_wanted
+
+#     if errx <= -0.05 : # and abs(errx) > 0.2:
+#         yaw1 = yaw0 - bang
+
+#     elif errx >= 0.05:
+#         yaw1 = yaw0 + bang
+
+        
+#     if abs(errx) < 0.05:
+#         test = False
+
+#     angles = [yaw1, pitch1]
+#     fraction_max_speed = 0.5
+#     motionProxy.setAngles(names, angles,fraction_max_speed)
 
 duration = 20.0
 while (time.time() - t0) < duration:
