@@ -4,10 +4,13 @@ import nao_driver
 #import nao_ctrl # python module for robot control algorithms
 import time
 import sys
+from naoqi import ALProxy
+
 
 # set default IP nd port on simulated robot
 robot_ip = "localhost"
 robot_port = 11212
+
 
 # change default IP nd port with arguments in command line
 if (len(sys.argv) >= 2):
@@ -34,15 +37,34 @@ img_ok,cv_img,image_width,image_height = nao_drv.get_image()
 nao_drv.show_image(key=3000) # 3 s
 
 
-# put max current in the servomotors (stiffness ; 0.0 no curent, 1.0 max current)
-nao_drv.motion_proxy.setStiffnesses('Body',1.0)
-
-# turn in place for a few seconds
-nao_drv.motion_proxy.moveInit()
-nao_drv.motion_proxy.move(0.0, 0.0, 0.04)
 t0 = time.time()
+
+try:
+    motionProxy = ALProxy("ALMotion", robot_ip, robot_port)
+except Exception, e:
+    print "Could not create proxy to ALMotion"
+    print "Error was: ", e
+
+
+names = ["HeadYaw", "HeadPitch"]
+print yaw0, pitch0
+bang = 0.2
+
+x_wanted = 0.5
+y_wanted = 0.7
+yaw0, pitch0 = motionProxy.getAngles(names, True)
+errx = yaw0 - x_wanted
+erry = pitch0 - y_wanted
+
 duration = 20.0
 while (time.time()-t0) < duration:
+
+
+    if errx <=0:
+
+
+
+
     img_ok,img,nx,ny = nao_drv.get_image()
     nao_drv.show_image(key=1)
     time.sleep(0.25)

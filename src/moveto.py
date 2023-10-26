@@ -45,7 +45,7 @@ except Exception, e:
 motionProxy.wakeUp()
 
 
-# Send NAO to Pose Init : it not standing then standing up
+# Send NAO to Pose Init : if not standing then standing up
 #postureProxy.goToPosture("StandInit", 0.5)
 
 # Enable arms control by Walk algorithm
