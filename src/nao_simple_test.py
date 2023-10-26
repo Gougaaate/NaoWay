@@ -5,6 +5,9 @@ import nao_driver
 import time
 import sys
 
+import cv2
+import detection
+
 # set default IP nd port on simulated robot
 robot_ip = "localhost"
 robot_port = 11212
@@ -44,6 +47,7 @@ t0 = time.time()
 duration = 20.0
 while (time.time()-t0) < duration:
     img_ok,img,nx,ny = nao_drv.get_image()
+    detection.detect_yellow_ball(img)
     nao_drv.show_image(key=1)
     time.sleep(0.25)
 nao_drv.motion_proxy.stopMove()

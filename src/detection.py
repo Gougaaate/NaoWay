@@ -33,10 +33,12 @@ def detect_yellow_ball(image):
     # Find the largest contour
     if contours:
         largest_contour = max(contours, key = cv2.contourArea)
+        
         # Calculer la circularite
         perimeter = cv2.arcLength(largest_contour, True)
         area = cv2.contourArea(largest_contour)
         circularity = (4 * np.pi * area) / (perimeter ** 2)
+        
         # Si l objet est suffisamment circulaire
         SEUIL_CIRCULARITE = 0.7
         if circularity > SEUIL_CIRCULARITE:
@@ -52,22 +54,34 @@ def detect_yellow_ball(image):
             # Dessiner un cercle autour de l objet
             cv2.drawContours(image, [largest_contour], -1, (0, 255, 0), 2)
             cv2.circle(image, (x_g, y_g), 5, (0, 255, 0), -1)
+            
+            # Afficher l'image binaire avec le masque
+            # cv2.namedWindow("Masque", cv2.WINDOW_NORMAL)
+            # cv2.imshow("Masque", mask)
+
+            # cv2.destroyWindows('Masque')
+            
             # Afficher le barycentre
             cv2.putText(image, "barycentre", (x_g - 20, y_g - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
             print("Barycentre : ({}, {})".format(x_g, y_g))
             
             return True, (x_g, y_g), cv2.contourArea(largest_contour)
         
+        else:
+            print("Objet non detecte !")
+            return False, None, None
+        
     # Afficher l image avec les contours detectes
-    cv2.imshow("Image avec contours", image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.namedWindow("Image avec contours", cv2.WINDOW_NORMAL)
+    # cv2.imshow("Image avec contours", image)
+    # cv2.waitKey(0)
+    # cv2.destroyWindows('Image avec contours')
 
     return False, None, None
 
 if __name__ == "__main__":
     # path_to_image = "../../../imgs/naosimimgs/IMG_8589.JPG"
-    path_to_image = "../../../imgs/naosimimgs/naosimimg_0130.png"
+    path_to_image = "../../../imgs/naosimimgs/naosimimg_0000.png"
     image = cv2.imread(path_to_image)
     detect_yellow_ball(image)
     
