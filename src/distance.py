@@ -31,10 +31,8 @@ def compute_distance(*args):
             pixel_length = np.sqrt(4 * largest_contour_area / np.pi)
             pixel_length_list.append(pixel_length)
 
-    k = 0
     for img, contours in zip(args, contours_list):
         cv2.drawContours(img, contours, -1, (0, 0, 255), 2)
-        k += 1
         cv2.imshow("test", img)
         cv2.waitKey(0)
 
