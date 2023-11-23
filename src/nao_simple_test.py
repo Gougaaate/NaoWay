@@ -94,27 +94,6 @@ while test:
     angles = [yaw1, pitch1]
     fraction_max_speed = 0.5
     motionProxy.setAngles(names, angles,fraction_max_speed)
-    
-# while test:
-#     img_ok, img, nx, ny = nao_drv.get_image()
-#     yaw0, pitch0 = motionProxy.getAngles(names, True)
-#     x_wanted = detection.detect_yellow_ball(img)[1][0]
-
-#     errx = w/2 - x_wanted
-
-#     if errx <= -0.05 : # and abs(errx) > 0.2:
-#         yaw1 = yaw0 - bang
-
-#     elif errx >= 0.05:
-#         yaw1 = yaw0 + bang
-
-        
-#     if abs(errx) < 0.05:
-#         test = False
-
-#     angles = [yaw1, pitch1]
-#     fraction_max_speed = 0.5
-#     motionProxy.setAngles(names, angles,fraction_max_speed)
 
 duration = 20.0
 while (time.time() - t0) < duration:
