@@ -33,6 +33,5 @@ while (time.time() - t0) < 15:
     test_detection = True
     while not test_detection:
         motionProxy.moveTo(0,10,10)
-        path_to_image = "../../../imgs/naosimimgs/naosimimg_0000.png"
-        image = cv2.imread(path_to_image)
-        test_detection, _, _ = detect_yellow_ball(image)
+        img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+        test_detection, _, _ = detect_yellow_ball(cv_img)
