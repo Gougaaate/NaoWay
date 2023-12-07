@@ -34,11 +34,12 @@ except Exception, e:
     # test_detection = False
 img_ok, cv_img, image_width, image_height = nao_drv.get_image()
 test_detection, _, _ = detect_yellow_ball(cv_img)
-# while not test_detection:
-#     motionProxy.moveTo(0,0,1)
-#     img_ok, cv_img, image_width, image_height = nao_drv.get_image()
-#     test_detection, _, _ = detect_yellow_ball(cv_img)
-#     print test_detection
+
+while not test_detection:
+    motionProxy.moveTo(0,0,1)
+    img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+    test_detection, _, _ = detect_yellow_ball(cv_img)
+    print test_detection
 
 # while the robot do not detect the red goal, it moves around the ball
 while not detect_red_goal(cv_img):
@@ -46,3 +47,7 @@ while not detect_red_goal(cv_img):
     img_ok, cv_img, image_width, image_height = nao_drv.get_image()
     detect_red_goal(cv_img)
     print detect_red_goal(cv_img)
+
+motionProxy.moveTo(0,0.9,-0.9)
+motionProxy.moveTo(0,1.5,0)
+motionProxy.moveTo(30,0,0)
