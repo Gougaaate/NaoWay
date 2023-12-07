@@ -1,12 +1,10 @@
 import nao_driver
-# import nao_improc # python module for image processing
-# import nao_ctrl # python module for robot control algorithms
 import time
 import sys
 from naoqi import ALProxy
 
 import cv2
-import detection
+from detection import detect_yellow_ball
 
 robot_ip = "localhost"
 robot_port = 11212
@@ -28,10 +26,13 @@ t0 = time.time()
 try:
     motionProxy = ALProxy("ALMotion", robot_ip, robot_port)
 except Exception, e:
-    print
-    "Could not create proxy to ALMotion"
-    print
-    "Error was: ", e
+    print "Could not create proxy to ALMotion"
+    print "Error was: ", e
 
 while (time.time() - t0) < 15:
-    motionProxy.moveTo(0,0,10)
+    test_detection = True
+    while not test_detection:
+        motionProxy.moveTo(0,10,10)
+        path_to_image = "../../../imgs/naosimimgs/naosimimg_0000.png"
+        image = cv2.imread(path_to_image)
+        test_detection, _, _ = detect_yellow_ball(image)
