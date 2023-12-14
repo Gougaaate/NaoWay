@@ -76,3 +76,4 @@ def last_moves():
     motionProxy.moveTo(0, 0.9, -0.9)
     motionProxy.moveTo(0, 1.5, 0)
     motionProxy.moveTo(30, 0, 0)
+    

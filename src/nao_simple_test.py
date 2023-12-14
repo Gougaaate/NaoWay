@@ -8,6 +8,7 @@ from naoqi import ALProxy
 
 import cv2
 import detection
+import turn_body
 
 # set default IP nd port on simulated robot
 robot_ip = "localhost"
@@ -89,6 +90,12 @@ while (time.time() - t0) < duration:
     nao_drv.show_image(key=1)
     time.sleep(0.25)
 nao_drv.motion_proxy.stopMove()
+
+print "debut turn body"
+# utilisation des fonctions de turn_body.py
+turn_body.move_until_ball_detected()
+turn_body.move_until_goal_detected()
+turn_body.last_moves()
 
 # acquire and display the image after the motion
 img_ok, cv_img, image_width, image_height = nao_drv.get_image()
