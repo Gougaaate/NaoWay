@@ -69,18 +69,14 @@ while test:
     elif errx >= 30:
         yaw1 = yaw0 + bang
 
-
     if erry <= -30 : # and abs(erry) > 0.2:
         pitch1 = pitch0 + bang
  
-
     elif erry >= 30:
         pitch1 = pitch0 - bang
 
-
     if abs(errx) < 30 and abs(erry) < 30:
         test = False
-
 
     angles = [yaw1, pitch1]
     fraction_max_speed = 0.5

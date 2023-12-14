@@ -30,22 +30,49 @@ except Exception, e:
     print "Could not create proxy to ALMotion"
     print "Error was: ", e
 
-img_ok, cv_img, image_width, image_height = nao_drv.get_image()
-test_detection, _, _ = detect_yellow_ball(cv_img)
+# img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+# test_detection, _, _ = detect_yellow_ball(cv_img)
 
-while not test_detection:
-    motionProxy.moveTo(0,0,1)
+# while not test_detection:
+#     motionProxy.moveTo(0,0,1)
+#     img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+#     test_detection, _, _ = detect_yellow_ball(cv_img)
+#     print test_detection
+
+# # while the robot do not detect the red goal, it moves around the ball
+# while not detect_red_goal(cv_img):
+#     motionProxy.moveTo(0,0.9,-1)
+#     img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+#     detect_red_goal(cv_img)
+#     print detect_red_goal(cv_img)
+
+# motionProxy.moveTo(0,0.9,-0.9)
+# motionProxy.moveTo(0,1.5,0)
+# motionProxy.moveTo(30,0,0)
+
+
+# Define a function to put the code above in
+def move_until_ball_detected():
     img_ok, cv_img, image_width, image_height = nao_drv.get_image()
     test_detection, _, _ = detect_yellow_ball(cv_img)
-    print test_detection
 
-# while the robot do not detect the red goal, it moves around the ball
-while not detect_red_goal(cv_img):
-    motionProxy.moveTo(0,0.9,-1)
+    while not test_detection:
+        motionProxy.moveTo(0, 0, 1)
+        img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+        test_detection, _, _ = detect_yellow_ball(cv_img)
+
+def move_until_goal_detected():
     img_ok, cv_img, image_width, image_height = nao_drv.get_image()
-    detect_red_goal(cv_img)
-    print detect_red_goal(cv_img)
 
-motionProxy.moveTo(0,0.9,-0.9)
-motionProxy.moveTo(0,1.5,0)
-motionProxy.moveTo(30,0,0)
+    # Move around the ball until the red goal is detected
+    while not detect_red_goal(cv_img):
+        motionProxy.moveTo(0, 0.9, -1)
+        img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+        print(detect_red_goal(cv_img))
+        
+        
+# Robot moves again to be aligned with the goal
+def last_moves():
+    motionProxy.moveTo(0, 0.9, -0.9)
+    motionProxy.moveTo(0, 1.5, 0)
+    motionProxy.moveTo(30, 0, 0)
