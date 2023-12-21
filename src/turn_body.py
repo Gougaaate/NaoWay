@@ -35,8 +35,6 @@ except Exception, e:
     print "Could not create proxy to ALMotion"
     print "Error was: ", e
 
-# while (time.time() - t0) < 15:
-    # test_detection = False
 img_ok, cv_img, image_width, image_height = nao_drv.get_image()
 test_detection, _, area = detect_yellow_ball(cv_img)
 

@@ -51,9 +51,6 @@ except Exception, e:
 names = ["HeadYaw", "HeadPitch"]
 bang = 0.005
 
-# x_wanted = detection.detect_yellow_ball(cv_img)[1][0] 
-# y_wanted = detection.detect_yellow_ball(cv_img)[1][1]
-
 w = 320
 h = 240
 
@@ -62,34 +59,28 @@ while test:
     img_ok, img, nx, ny = nao_drv.get_image()
     yaw0, pitch0 = motionProxy.getAngles(names, True)
     x_wanted = detection.detect_yellow_ball(img)[1][0]
-    # print x_wanted 
     y_wanted = detection.detect_yellow_ball(img)[1][1]
-    # print y_wanted
     errx = w/2 - x_wanted
     erry = h/2 - y_wanted
 
     if errx <= -30 : # and abs(errx) > 0.2:
         yaw1 = yaw0 - bang
-        print "errx = ", errx
 
     elif errx >= 30:
         yaw1 = yaw0 + bang
-        print "errx = ", errx
-        
-    # else:
-    #     break
+
 
     if erry <= -30 : # and abs(erry) > 0.2:
         pitch1 = pitch0 + bang
-        print "erry = ", erry
+ 
 
     elif erry >= 30:
         pitch1 = pitch0 - bang
-        print "erry = ", erry
+
 
     if abs(errx) < 30 and abs(erry) < 30:
         test = False
-        print "adam est un tel bg"
+
 
     angles = [yaw1, pitch1]
     fraction_max_speed = 0.5

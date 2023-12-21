@@ -42,7 +42,6 @@ def detect_yellow_ball(image):
         # Si l objet est suffisamment circulaire
         SEUIL_CIRCULARITE = 0.7
         if circularity > SEUIL_CIRCULARITE:
-            # print("Objet detecte !")
             # Calculer les moments pour le barycentre
             moments = cv2.moments(largest_contour)
             if moments["m00"] != 0:
@@ -58,8 +57,6 @@ def detect_yellow_ball(image):
             # Afficher l'image binaire avec le masque
             cv2.namedWindow("Masque", cv2.WINDOW_NORMAL)
             cv2.imshow("Masque", mask)
-            # cv2.waitKey(0)
-            # cv2.destroyWindows('Masque')
             
             # Afficher le barycentre
             cv2.putText(image, "barycentre", (x_g - 20, y_g - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
@@ -70,12 +67,6 @@ def detect_yellow_ball(image):
         else:
             # print("Objet non detecte !")
             return False, None, None
-        
-    # Afficher l image avec les contours detectes
-    # cv2.namedWindow("Image avec contours", cv2.WINDOW_NORMAL)
-    # cv2.imshow("Image avec contours", image)
-    # cv2.waitKey(0)
-    # cv2.destroyWindows('Image avec contours')
 
     return False, None, None
 
