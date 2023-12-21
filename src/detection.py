@@ -79,6 +79,14 @@ def detect_yellow_ball(image):
 
     return False, None, None
 
+def distance_to_ball(area, alpha, cam_height, ball_diam):
+    # IF THE ROBOT DOES NOT SEE THE BALL
+    if area == None:
+        return None
+    print ball_diam * alpha / math.sqrt(area/math.pi)
+    return ball_diam * alpha / math.sqrt(area/math.pi)
+    
+
 if __name__ == "__main__":
     # path_to_image = "../../../imgs/naosimimgs/IMG_8589.JPG"
     path_to_image = "../../../imgs/naosimimgs/naosimimg_0000.png"
