@@ -58,12 +58,17 @@ while distance > 1 :
         break
     distance = distance_to_ball(area, alpha, cam_height, ball_diam)
 
-        
+
+
 
 
 
 # while the robot does not detect the red goal, it moves around the ball
-# while not detect_red_goal(cv_img):
+while not detect_red_goal(cv_img):
+    motionProxy.moveTo(0,0.3,-0.25)
+    img_ok, cv_img, image_width, image_height = nao_drv.get_image()
+    print detect_red_goal(cv_img)
+    # print test_detection
     
 # while True :
 #     img_ok, cv_img, image_width, image_height = nao_drv.get_image()
@@ -76,5 +81,6 @@ while distance > 1 :
     # print detect_red_goal(cv_img)
 
 # motionProxy.moveTo(0,0.9,-0.9)
-# motionProxy.moveTo(0,1.5,0)
-# motionProxy.moveTo(30,0,0)
+motionProxy.moveTo(0,0.6,-0.6)
+motionProxy.moveTo(0,1,0)
+motionProxy.moveTo(30,-5,0)

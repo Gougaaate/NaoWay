@@ -27,7 +27,7 @@ def detect_red_goal(image):
     contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
     # Find the largest contour
-    if contours:
+    if contours and len(contours) == 4:
         return True
         
     else:
