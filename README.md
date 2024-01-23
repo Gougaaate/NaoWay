@@ -25,3 +25,14 @@ To run the code and see the robot score, all you need to do is run the following
 ```
 python turn_body.py
 ```
+## Description of `detection.py`
+
+This python file has two functions :
+- **detect_yellow_ball** : converts the image to HSV and applies a mask to the camera image. A cicularity calculation is also implemented to recognize a round object and displays the binarized image with the mask applied to the ball. Finally, it measures the ball's barycenter in order to trace the ball's contour.
+
+- **distance_to_ball** : this function calculates the robot's distance from the ball it sees.
+
+## Description of `detection.py`
+
+For the robot to align itself on the axis in relation to the soccer cages, it needs to detect the 4 edges of the cages. The **detect_red_goal** function converts the camera image into HSV format and detects the color red. A counter counts exactly four red corners.
+
